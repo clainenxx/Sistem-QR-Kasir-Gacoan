@@ -1,0 +1,14 @@
+# Kalau kamu sudah punya supabase/config.toml sendiri (dari `supabase
+# init`), gabungkan isi [functions.*] di bawah ini ke file kamu —
+# jangan overwrite seluruh file.
+
+[functions.create-transaction]
+# JWT verification TETAP AKTIF (default) — dipanggil dari browser
+# pakai anon key lewat supabase.functions.invoke, jadi otomatis lolos.
+verify_jwt = true
+
+[functions.midtrans-webhook]
+# WAJIB false — Midtrans manggil endpoint ini tanpa Supabase JWT sama
+# sekali. Keamanannya dijamin oleh verifikasi signature_key di dalam
+# function itu sendiri, bukan oleh JWT.
+verify_jwt = false

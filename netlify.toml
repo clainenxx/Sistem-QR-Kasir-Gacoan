@@ -1,0 +1,31 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA fallback — semua route (termasuk /login, /admin/*, /order/:token)
+# harus diarahkan ke index.html supaya react-router yang nanganin,
+# bukan Netlify balikin 404 pas orang refresh di URL selain "/".
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers dasar. CSP sengaja agak longgar (unsafe-inline buat
+# style, connect-src ke Supabase & Midtrans) karena app ini React SPA +
+# Snap.js Midtrans yang nyuntik elemen sendiri — kalau mau lebih ketat,
+# perlu nonce/hash per build, di luar scope portfolio project ini.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(self), geolocation=(), microphone=()"
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://app.sandbox.midtrans.com;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      connect-src 'self' https://*.supabase.co https://app.sandbox.midtrans.com;
+      frame-src https://app.sandbox.midtrans.com;
+    """
