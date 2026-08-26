@@ -70,4 +70,4 @@ Repo ini publik untuk keperluan portofolio, jadi beberapa hal saya batasi:
 
 ## Author
 
-Dibuat oleh [Nama kamu]. Portofolio: isi link. LinkedIn: isi link.
+Dibuat oleh Geord. LinkedIn: www.linkedin.com/in/hafiz-nadiyan-basri-3783752b5.
